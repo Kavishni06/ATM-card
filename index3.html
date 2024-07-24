@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Interactive card details form</title>
+<link rel="stylesheet"href="sample.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+ <style>
+  * {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+}
+
+.container {
+  width: 95%;
+  margin: 0px auto;
+  max-width: 1440px;
+}
+
+img {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+
+.p-absolute {
+  position: absolute;
+  z-index: 100;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.d-flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.jc-between {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.align-center {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.w-250 {
+  width: 250px;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  font-size: 1.3rem;
+  color: white;
+  border: none;
+  outline: none;
+  background-color: #21092f;
+  border-radius: 15px;
+  padding: 15px 0px;
+  margin: 0px auto;
+  cursor: pointer;
+  -webkit-transition: all 500ms;
+  -o-transition: all 500ms;
+  transition: all 500ms;
+}
+.btn:hover {
+  -webkit-filter: drop-shadow(2px 4px 6px #8e8593);
+  filter: drop-shadow(2px 4px 6px #8e8593);
+}
+
+span {
+  color: white;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+  display: block;
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+input[type="text"],
+input[type="number"] {
+  height: 40px;
+  width: 100%;
+  padding-left: 16px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #dedddf;
+  font-size: 1.1rem;
+  color: #21092f;
+  margin-top: 5px;
+}
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border: 1px solid #21092f;
+}
+input[type="text"].border,
+input[type="number"].border {
+  border: 1px solid #ff5252;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+::-webkit-input-placeholder {
+  color: #8e8593;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+::-moz-placeholder {
+  color: #8e8593;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+:-ms-input-placeholder {
+  color: #8e8593;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+::-ms-input-placeholder {
+  color: #8e8593;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+::placeholder {
+  color: #8e8593;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  opacity: 0.7;
+}
+
+.input-group {
+  opacity: 0;
+}
+.input-group.visible {
+  opacity: 1;
+}
+.input-group.part-name {
+  -webkit-animation: visible 1.5s linear;
+  animation: visible 1.5s linear;
+}
+.input-group.part-number {
+  -webkit-animation: visible 1.75s linear;
+  animation: visible 1.75s linear;
+}
+.input-group.part-date {
+  -webkit-animation: visible 2s linear;
+  animation: visible 2s linear;
+}
+.input-group.part-cvc {
+  -webkit-animation: visible 2.25s linear;
+  animation: visible 2.25s linear;
+}
+
+#ccv {
+  top: 42%;
+  right: 0.5rem;
+}
+
+#name,
+#date {
+  font-size: 0.8rem;
+}
+
+.card {
+  background-image: url(../images/bg-main-mobile.png);
+  background-size: 100% 35%;
+  background-repeat: no-repeat;
+  padding-top: 2rem;
+}
+.card__data__back {
+  width: 300px;
+  opacity: 0;
+}
+.card__data__back.visible {
+  opacity: 1;
+  -webkit-animation: visible 1.25s linear;
+  animation: visible 1.25s linear;
+}
+.card__data__back img {
+  -webkit-transform: translateX(10%);
+  -ms-transform: translateX(10%);
+  transform: translateX(10%);
+}
+.card__data__back .p-absolute {
+  top: 0;
+  right: 0;
+  -webkit-transform: translate(0%, 124%);
+  -ms-transform: translate(0%, 124%);
+  transform: translate(0%, 124%);
+}
+.card__data__front {
+  width: 300px;
+  opacity: 1;
+}
+.card__data__front.visible {
+  opacity: 1;
+  -webkit-animation: visible 1s linear;
+  animation: visible 1s linear;
+}
+.card__data__front img {
+  -webkit-transform: translate(-10%, -30%);
+  -ms-transform: translate(-10%, -30%);
+  transform: translate(-10%, -30%);
+}
+.card__data__front--logo img {
+  width: auto;
+}
+.card__data__front .p-absolute {
+  top: 0;
+  left: 0;
+  -webkit-transform: translateY(-1rem);
+  -ms-transform: translateY(-1rem);
+  transform: translateY(-1rem);
+  width: 100%;
+}
+.card__form {
+  padding: 20px;
+  max-width: 400px;
+  margin: 0px auto;
+}
+.card__form.hide {
+  display: none;
+  -webkit-animation: visible 0.5s linear;
+  animation: visible 0.5s linear;
+}
+.card__form .input-group {
+  margin-bottom: 30px;
+}
+.card__form .error {
+  color: #ff5252;
+  font-size: 0.7rem;
+  letter-spacing: 0px;
+  z-index: -1;
+  opacity: 0;
+  text-transform: capitalize;
+}
+.card__form .error.visible {
+  opacity: 1;
+  -webkit-animation: visible 0.5s linear;
+  animation: visible 0.5s linear;
+}
+.card__form label {
+  display: block;
+  text-transform: uppercase;
+  color: #21092f;
+  font-size: 0.9rem;
+}
+.card__form--date input {
+  width: 4rem;
+}
+.card__form--date input:nth-child(2) {
+  margin: 5px 20px 0px 20px;
+}
+.card__form .btn.confirm {
+  opacity: 0;
+}
+.card__form .btn.confirm.visible {
+  opacity: 1;
+  -webkit-animation: visible 2.25s linear;
+  animation: visible 2.25s linear;
+}
+
+.modal {
+  text-align: center;
+  max-width: 500px;
+  margin: 20px auto;
+  opacity: 0;
+  background-color: white;
+  -webkit-transition: all 500ms;
+  -o-transition: all 500ms;
+  transition: all 500ms;
+  display: none;
+}
+.modal.visible {
+  opacity: 1;
+  display: block;
+  -webkit-animation: visible 0.5s linear;
+  animation: visible 0.5s linear;
+}
+.modal img {
+  max-width: 100px;
+  margin: 20px auto;
+}
+.modal h1 {
+  color: #21092f;
+  margin: 20px 0px;
+}
+.modal p {
+  color: #8e8593;
+}
+.modal .btn {
+  margin-top: 2rem;
+  max-width: 250px;
+}
+
+.attribution {
+  display: none;
+  font-size: 11px;
+  text-align: center;
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  opacity: 0;
+}
+.attribution.visible {
+  opacity: 1;
+  -webkit-animation: visible 3s linear;
+  animation: visible 3s linear;
+}
+
+.attribution a {
+  color: #3e52a3;
+}
+
+@-webkit-keyframes visible {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes visible {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@media (min-width: 768px) {
+  .card {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url(../images/bg-main-desktop.png);
+    background-repeat: no-repeat;
+    background-size: 30% 100%;
+    padding: 0;
+  }
+  .card__data__back .p-absolute {
+    -webkit-transform: translate(0%, 14.5rem);
+    -ms-transform: translate(0%, 14.5rem);
+    transform: translate(0%, 14.5rem);
+  }
+  .card__data__back img {
+    -webkit-transform: translate(10%, 100%);
+    -ms-transform: translate(10%, 100%);
+    transform: translate(10%, 100%);
+  }
+  .card__data__front img {
+    -webkit-transform: translate(-10%, -109%);
+    -ms-transform: translate(-10%, -109%);
+    transform: translate(-10%, -109%);
+  }
+  .card__data__front .p-absolute {
+    -webkit-transform: translateY(-95%);
+    -ms-transform: translateY(-95%);
+    transform: translateY(-95%);
+  }
+  .card__data__front--logo {
+    height: 20px;
+  }
+  .card__data,
+  .card__form {
+    -ms-flex-preferred-size: 50%;
+    flex-basis: 50%;
+  }
+  .card__form--date input {
+    width: 5rem;
+  }
+
+  .attribution {
+    display: block;
+  }
+}
+@media (min-width: 1024px) {
+  .w-250 {
+    width: 310px;
+  }
+
+  .card__data__back,
+  .card__data__front {
+    width: 400px;
+  }
+  .card__data__back .p-absolute {
+    -webkit-transform: translate(0%, 19.7rem);
+    -ms-transform: translate(0%, 19.7rem);
+    transform: translate(0%, 19.7rem);
+  }
+  .card__data__front .p-absolute {
+    -webkit-transform: translateY(-106%);
+    -ms-transform: translateY(-106%);
+    transform: translateY(-106%);
+  }
+  .card__data__front--logo {
+    height: auto;
+  }
+}
+ </style>
+</head>
+
+<body>
+  <main class="main-container">
+    <section class="card">
+      <div class="card__data">
+        <div class="card__data__back p-relative container">
+          <img src="bg-card-back.png" alt="Card Back">
+          <div class="p-absolute" id="CVC">
+            <span>000</span>
+          </div>
+        </div>
+        <div class="card__data__front p-relative container">
+          <img src="bg-card-front.jpeg" alt="Card Front">
+          <div class="p-absolute">
+            <div class="card__data__front--logo">
+              <img src="images/card-logo.svg" alt="Card Logo">
+            </div>
+            <div class="card__data__front--cardnumber">
+              <span id="cardNumber">0000 0000 0000 0000</span>
+            </div>
+            <div class="d-flex jc-between align-center w-250">
+              <div class="card__data__front--name">
+                <span id="name">JANE APPLESSED</span>
+              </div>
+              <div class="card__data__front--date">
+                <span id="date">00/00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form method="POST" class="card__form" onsubmit="return false;">
+        <div class="input-group part-name">
+          <label for="txtName">Cardholder Name</label>
+          <input type="text" name="txtName" id="txtName" placeholder="e.g. Jane Appleseed" required="">
+          <span class="error p-absolute" id="errorCardName">Wrong format, text only</span>
+        </div>
+        <div class="input-group part-number">
+          <label for="txtCardNumber">Card Number</label>
+          <input type="text" name="txtCardNumber" id="txtCardNumber" placeholder="e.g. 1234 5678 9123 0000" required="">
+          <span class="error p-absolute" id="errorCardNumber">Wrong format, numbers only</span>
+        </div>
+        <div class="d-flex jc-between">
+          <div class="input-group card__form--date part-date">
+            <label for="txtCardMonth">Exp. Date (MM/YY)</label>
+            <div class="d-flex">
+              <input type="number" name="txtCardMonth" id="txtCardMonth" placeholder="MM" max="12" min="01" required="">
+              <input type="number" name="txtCardYear" id="txtCardYear" placeholder="YY" required="">
+            </div>
+            <span class="error p-absolute" id="errorDate">Cant be blank</span>
+          </div>
+          <div class="input-group card__form--cvc part-cvc">
+            <label for="txtCardCVC">CVC</label>
+            <input type="number" name="txtCardCVC" id="txtCardCVC" placeholder="e.g. 123" required="">
+            <span class="error p-absolute" id="errorCVC">Cant be blank</span>
+          </div>
+        </div>
+        <button class="btn confirm" onclick="validate();">Confirm</button>
+      </form>
+      <div class="modal">
+        <img src="images/icon-complete.svg" alt="Logo Complete">
+        <h1>THANK YOU!</h1>
+        <p>We've added your card details</p>
+        <button class="btn" onclick="resetForm();">Continue</button>
+      </div>
+    </section>
+  </main>
+  
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="https://mrubi.vercel.app/" target="_blank">Marcos Rubí</a>.
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js"
+    integrity="sha512-KaIyHb30iXTXfGyI9cyKFUIRSSuekJt6/vqXtyQKhQP6ozZEGY8nOtRS6fExqE4+RbYHus2yGyYg1BrqxzV6YA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script >
+    //ANIMATION WHEN LOADING THE SITE
+const cardBack = document.querySelector(".card__data__back");
+const cardFront = document.querySelector(".card__data__front");
+const inputs = document.querySelectorAll(".input-group");
+const btn = document.querySelector(".btn.confirm");
+const attribution = document.querySelector(".attribution");
+
+const startAnimation = (entries, observe) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+};
+const observer = new IntersectionObserver(startAnimation, {
+  root: null,
+  rootMargin: "0px",
+  threshold: 0.1,
+});
+
+
+observer.observe(cardBack);
+observer.observe(cardFront);
+inputs.forEach((input) => {
+  observer.observe(input);
+});
+observer.observe(btn);
+observer.observe(attribution);
+//END CODE FOR ANIMATIONS
+
+
+const inputCardName = document.getElementById("txtName");
+const spanName = document.getElementById("name");
+const msgErrorCardName = document.getElementById("errorCardName");
+
+const inputCardNumber = document.getElementById("txtCardNumber");
+const spanCardNumber = document.getElementById("cardNumber");
+const msgErrorCardNumber = document.getElementById("errorCardNumber");
+
+const inputCardMonth = document.getElementById("txtCardMonth");
+const spanCardDate = document.getElementById("date");
+const msgErrorDate = document.getElementById("errorDate");
+
+const inputCardYear = document.getElementById("txtCardYear");
+const spanCardYear = document.getElementById("date");
+
+const inputCardCVC = document.getElementById("txtCardCVC");
+const spanCardCVC = document.querySelector("#CVC span");
+const msgErrorCVC = document.getElementById("errorCVC");
+
+const evts = ["focus", "keyup", "keypress"];
+let date = ["00", "00"]
+
+let isValidCardName = false
+let isValidCardNumber = false
+let isValidCardMonth = false
+let isValidCardYear = false
+let isValidCardCVC = false
+
+new Cleave("#txtCardNumber", {
+  creditCard: true,
+});
+new Cleave("#txtCardMonth", {
+  date: true,
+  datePattern: ["m"],
+});
+new Cleave("#txtCardYear", {
+  date: true,
+  datePattern: ["y"],
+});
+new Cleave('#txtCardCVC', {
+  numeral: true
+});
+
+evts.forEach((evt) => {
+  // VALIDATE CARD NAME
+  inputCardName.addEventListener(evt, () => {
+    if ( inputCardName.value == undefined || inputCardName.value.trim().length <= 0 || !/^[A-Z ]+$/i.test(inputCardName.value)) {
+      inputCardName.classList.add("border");
+      spanName.innerHTML = "JANE APPLESSED";
+      msgErrorCardName.classList.add("visible");
+      isValidCardName = false
+      return;
+    }
+
+    inputCardName.classList.remove("border");
+    spanName.innerHTML = inputCardName.value;
+    msgErrorCardName.classList.remove("visible");
+    isValidCardName = true
+  });
+
+
+  // VALIDATE CARD NUMBER
+  inputCardNumber.addEventListener(evt, () => {
+    spanCardNumber.innerHTML = inputCardNumber.value;
+    if (inputCardNumber.value == undefined || inputCardNumber.value.trim().length <= 0) {
+      inputCardNumber.classList.add("border");
+      spanCardNumber.innerHTML = "0000 0000 0000 0000";
+      msgErrorCardNumber.classList.add("visible");
+      isValidCardNumber= false
+      return;
+    }
+    if(inputCardNumber.value.trim().length <= 18){
+      msgErrorCardNumber.innerHTML = "The card must have 16 digits"
+      msgErrorCardNumber.classList.add('visible')
+      isValidCardNumber= false
+      return
+    }
+
+    inputCardNumber.classList.remove("border");
+    msgErrorCardNumber.classList.remove("visible");
+    isValidCardNumber= true
+  });
+
+
+  //VALIDATE CARD MONTH
+  inputCardMonth.addEventListener(evt, () => {
+    if (inputCardMonth.value == undefined || inputCardMonth.value.trim().length <= 1) {
+      inputCardMonth.classList.add("border");
+      spanCardDate.innerHTML = "00/00"
+      msgErrorDate.classList.add("visible");
+      isValidCardMonth = false
+      return;
+    }
+
+    inputCardMonth.classList.remove("border");
+    date[0] = inputCardMonth.value;
+    spanCardDate.innerHTML = date[0] + "/" + date[1]
+    msgErrorDate.classList.remove("visible");
+    isValidCardMonth = true
+  });
+
+
+  //VALIDATE CARD YEAR
+  inputCardYear.addEventListener(evt, () => {
+    if (inputCardYear.value == undefined || inputCardYear.value.trim().length <= 1 || parseInt(inputCardYear.value) <= 21 || parseInt(inputCardYear.value) > 27) {
+      inputCardYear.classList.add("border");
+      spanCardDate.innerHTML = date[0] + "/00"
+      msgErrorDate.innerHTML = "Wrong card date"
+      msgErrorDate.classList.add("visible");
+      isValidCardYear = false
+      return;
+    }
+
+    inputCardYear.classList.remove("border");
+    date[1] = inputCardYear.value;
+    spanCardDate.innerHTML = date[0] + "/" + date[1]
+    msgErrorDate.classList.remove("visible");
+    isValidCardYear = true
+  });
+
+
+  // VALIDATE CARD CVC
+  inputCardCVC.addEventListener(evt, () => {
+    spanCardCVC.innerHTML = inputCardCVC.value;
+
+    if (inputCardCVC.value == undefined || inputCardCVC.value.trim().length <= 0) {
+      inputCardCVC.classList.add("border");
+      spanCardCVC.innerHTML = "000";
+      msgErrorCVC.classList.add("visible");
+      isValidCardCVC = false
+      return;
+    }
+    if(inputCardCVC.value.trim().length <= 2){
+      msgErrorCVC.innerHTML = "The CVC must be 3 digits"
+      msgErrorCVC.classList.add('visible')
+      isValidCardCVC = false
+      return
+    }
+
+    inputCardCVC.classList.remove("border");
+    msgErrorCVC.classList.remove("visible");
+    isValidCardCVC = true
+  });
+
+});
+
+function validate(){
+  if(isValidCardCVC && isValidCardName && isValidCardYear && isValidCardMonth && isValidCardNumber){
+    //HIDE FORM AND SHOW MODAL CONFIRM
+    document.querySelector('.modal').classList.add('visible')
+    document.querySelector('.card__form').classList.add('hide')
+  }
+}
+function resetForm(){
+  //HIDE MODAL AND SHOW FORM
+  document.querySelector('.modal').classList.remove('visible')
+  document.querySelector('.card__form').classList.remove('hide')
+
+    //CLEAN INPUTS
+    inputCardName.value = ""
+    inputCardNumber.value = ""
+    inputCardMonth.value = ""
+    inputCardYear.value = ""
+    inputCardCVC.value = ""
+
+    //RESET BOLEANS
+    isValidCardName = false
+    isValidCardNumber = false
+    isValidCardMonth = false
+    isValidCardYear = false
+    isValidCardCVC = false
+
+    //CLEAN DATA CARD
+    spanName.innerHTML = "JANE APPLESSED"
+    spanCardNumber.innerHTML = "0000 0000 0000 0000"
+    spanCardDate.innerHTML = "00/00"
+    spanCardCVC.innerHTML = "000"
+}
+
+  </script>
+</body>
+
+</html>
